@@ -1,28 +1,29 @@
 #include <stdio.h>
- int main() {
-    float base, altura, perimetro, area;
 
-  int codigo;
- 
- 
-  printf("Digite o valor da base:");
-  scanf ("%f", &base);
+int main() {
+	float A, B, C;
 
-  printf("Digite o valor da altura:");
-  scanf ("%f", &altura);
- 
-  perimetro = 2 * base + 2 * altura;
-  area = base * altura;
- 
-  printf("Perímetro: %.2f\n", perimetro);
-  printf("Área: %.2f\n", area);
-  
-  if (perimetro > area) {
-    printf("O perímetro é maior que a área.\n");
-  } else if (area > perimetro) {
-    printf("A área é maior que o perímetro.\n");
-  } else {
-    printf("O perímetro e a área são iguais.\n");
-  }
-  return 0;
+	printf("Digite o valor do lado A: ");
+	scanf("%f", &A);
+	printf("Digite o valor do lado B: ");
+	scanf("%f", &B);
+	printf("Digite o valor do lado C: ");
+	scanf("%f", &C);
+
+
+	if (A + B > C && A + C > B && B + C > A) {
+		printf("Os valores formam um triangulo.\n");
+		if (A == B && B == C) {
+			printf("Triangulo equilatero.\n");
+		} else if (A == B || B == C || A == C) {
+			printf("Triangulo isosceles.\n");
+		} else {
+			printf("Triangulo escaleno.\n");
+		}
+	} else {
+		printf("Os valores nao formam um triangulo.\n");
+	}
+
+	return 0;
+
 }
