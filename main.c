@@ -3,23 +3,18 @@
 #include <ctype.h>
 
 int ehVogal(char c) {
-	c = tolower((unsigned char)c);
-	return (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u');
+	c = tolower(c);
+	return (c=='a' || c=='e' || c=='i' || c=='o' || c=='u');
+
 }
 
-int ehConsoante(char c) {
-	c = tolower((unsigned char)c);
-	if (c >= 'a' && c <= 'z' && !ehVogal(c)) {
-		return 1;
-	}
-	return 0;
-}
-
-void inverteString(char s[]) {
+void inverter(char s[]) {
 	int i = 0;
-	int j = (int)strlen(s) - 1;
+	int j = strlen(s) - 1;
+	char temp;
+
 	while (i < j) {
-		char temp = s[i];
+		temp = s[i];
 		s[i] = s[j];
 		s[j] = temp;
 		i++;
@@ -30,54 +25,42 @@ void inverteString(char s[]) {
 int main() {
 	char original[4][3][100];
 	char modificada[4][3][100];
-	int i, j;
 
-	for (i = 0; i < 4; i++) {
-		for (j = 0; j < 3; j++) {
-			printf("Digite a string da posicao [%d][%d]: ", i, j);
-			scanf("%99s", original[i][j]);
-		}
-	}
+	for (int i = 0; i < 4; i++) {
+		for (int j = 0; j < 3; j++) {
+			printf("Digite a string da posiC'C#o [%d][%d]: ", i, j);
+			fgets(original[i][j], 100, stdin);
 
-	for (i = 0; i < 4; i++) {
-		for (j = 0; j < 3; j++) {
+			original[i][j][strcspn(original[i][j], "\n")] = '\0';
 			strcpy(modificada[i][j], original[i][j]);
 		}
 	}
+	for (int i = 0; i < 4; i++) {
+		for (int j = 0; j < 3; j++) {
+			char *str = modificada[i][j];
 
-	for (i = 0; i < 4; i++) {
-		for (j = 0; j < 3; j++) {
-			char *s = modificada[i][j];
-			int tamanho = (int)strlen(s);
+			int tam = strlen(str);
 
-			if (tamanho == 0) {
-				continue;
-			}
-
-			char primeiro = s[0];
-			char ultimo = s[tamanho - 1];
-
-			if (ehVogal(primeiro) && ehConsoante(ultimo)) {
-				inverteString(s);
+			if (tam > 0 && ehVogal(str[0]) && ehVogal(str[tam-1])) {
+				inverter(str);
 			}
 		}
 	}
 
 	printf("\nMatriz Original:\n");
-	for (i = 0; i < 4; i++) {
-		for (j = 0; j < 3; j++) {
-			printf("%s ", original[i][j]);
+	for (int i = 0; i < 4; i++) {
+		for (int j = 0; j < 3; j++) {
+			printf("[%d][%d] %s\n", i, j, original[i][j]);
 		}
-		printf("\n");
 	}
 
 	printf("\nMatriz Modificada:\n");
-	for (i = 0; i < 4; i++) {
-		for (j = 0; j < 3; j++) {
-			printf("%s ", modificada[i][j]);
+	for (int i = 0; i < 4; i++) {
+		for (int j = 0; j < 3; j++) {
+			printf("[%d][%d] %s\n", i, j, modificada[i][j]);
 		}
-		printf("\n");
 	}
 
 	return 0;
+
 }
